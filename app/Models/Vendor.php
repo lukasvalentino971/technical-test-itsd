@@ -12,7 +12,7 @@ class Vendor extends Authenticatable
     protected $table = 'vendors'; // pastikan sesuai nama tabel
 
     protected $fillable = [
-        'name', 'email', 'password', // sesuaikan dengan kolom di tabel vendors
+        'name', 'email', 'password', 'phone' // sesuaikan dengan kolom di tabel vendors
     ];
 
     protected $hidden = [
