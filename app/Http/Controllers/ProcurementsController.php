@@ -18,6 +18,17 @@ class ProcurementsController extends Controller
         return view('procurements.index', compact('procurements'));
     }
 
+    public function report()
+    {
+        // Mengambil semua data procurement dengan relasi ke item, produk, dan vendor
+        // Pastikan Anda sudah membuat relasi 'vendor' pada model 'Product'
+        $procurements = Procurements::with('items.product.vendor')
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+
+        return view('procurements.report', compact('procurements'));
+    }
+
     public function create()
     {
         $products = Products::all();
