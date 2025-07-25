@@ -9,11 +9,14 @@ class Procurements extends Model
 {
     use HasFactory;
 
-    // table_name procurements
-
     protected $table = 'procurements';
 
     protected $fillable = [
         'title', 'total_price',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(ProcurementItems::class, 'procurement_id');
+    }
 }
