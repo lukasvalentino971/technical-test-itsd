@@ -22,22 +22,22 @@
                         </span>
                     </a>
                 </div>
-
-                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
+                <div class="header-item d-flex align-items-center">
+                    <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
+                        <span class="fw-semibold fs-5 text-white">Simple Procurement System</span>
+                        
+                        <!-- Badge warna -->
+                        <span class="badge bg-success text-uppercase">Ver 1.0</span>
+                        <!-- atau bisa juga -->
+                        <!-- <span class="badge bg-info text-dark">Production</span> -->
+                    </div>
+                </div>
+                
+                
 
                 <!-- App Search-->
                 <form class="app-search d-none d-md-block">
-                    <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
-                        <span class="mdi mdi-magnify search-widget-icon"></span>
-                        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
-                    </div>
+
                     <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
                         <div data-simplebar style="max-height: 320px;">
                             <!-- item-->
