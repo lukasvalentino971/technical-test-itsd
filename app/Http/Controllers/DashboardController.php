@@ -6,7 +6,7 @@ use App\Models\Products;
     use App\Models\Procurements;
     use App\Models\Vendor; // Pastikan nama model Vendor sudah benar
     use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
     
     class DashboardController extends Controller
     {
@@ -29,7 +29,12 @@ use App\Models\Products;
                                     ->orderBy('created_at', 'desc')
                                     ->take(5)
                                     ->get();
-    
+            
+            // Mengambil 5 produk dengan stok terendah
+            $lowStockProducts = Products::orderBy('stocks', 'asc')
+                                ->take(5)
+                                ->get();
+
             // Mengambil nama user yang sedang login
             $user = Auth::user();
     
@@ -40,7 +45,8 @@ use App\Models\Products;
                 'totalProducts',
                 'totalVendors',
                 'totalProcurementTransactions',
-                'recentProcurements'
+                'recentProcurements',
+                'lowStockProducts',
             ));
         }
     }

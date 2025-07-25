@@ -135,7 +135,8 @@
 
             {{-- Baris untuk Tabel Aktivitas Terbaru --}}
             <div class="row">
-                <div class="col-xl-12">
+                <!-- Aktivitas Procurement Terbaru -->
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Aktivitas Procurement Terbaru</h4>
@@ -143,7 +144,7 @@
                                 <a href="{{ route('procurements.index') }}" class="btn btn-soft-info btn-sm">Lihat Semua</a>
                             </div>
                         </div><!-- end card header -->
-
+            
                         <div class="card-body">
                             <div class="table-responsive table-card">
                                 <table class="table table-hover table-nowrap align-middle mb-0">
@@ -178,10 +179,56 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                {{-- Kartu Produk Stok Rendah --}}
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Stok Produk Terendah</h4>
+                            <div class="flex-shrink-0">
+                                <a href="{{ route('products.index') }}" class="btn btn-soft-info btn-sm">Lihat Semua</a>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-hover table-nowrap align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Produk</th>
+                                            <th>Vendor</th>
+                                            <th>Harga</th>
+                                            <th>Stok</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($lowStockProducts as $product)
+                                        <tr>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->vendor->name }}</td>
+                                            <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
+                                            <td>{{ $product->stocks }}</td>
+                                            <td>
+                                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-soft-primary">Detail</a>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">Tidak ada produk dengan stok kritis (<10).</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 @endsection
 @section('script')
