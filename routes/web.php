@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,24 +15,35 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes();
-//Language Translation
+
+// Language Translation
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
+// Root
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
 
-//Update User Details
-Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
-Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
+// Routes that require authentication
+Route::middleware(['auth'])->group(function () {
 
-// vendors
-Route::resource('vendors', App\Http\Controllers\VendorController::class);
+    // Dashboard
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-// products
-Route::resource('products', App\Http\Controllers\ProductsController::class);
+    // Update user details
+    Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/update-password/{id}', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
 
-//procurements
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('procurements', App\Http\Controllers\ProcurementsController::class);
+    // Vendors
+    Route::resource('vendors', App\Http\Controllers\VendorController::class);
+
+    // Products
+    Route::resource('products', App\Http\Controllers\ProductsController::class);
+
+    // Procurements (only for admin)
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('procurements', App\Http\Controllers\ProcurementsController::class);
+        Route::get('/procurement-report', [App\Http\Controllers\ProcurementsController::class, 'report'])->name('procurements.report');
+    });
 });
 
+// Catch-all fallback (optional, accessible without auth)
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

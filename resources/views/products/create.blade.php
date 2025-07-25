@@ -41,6 +41,16 @@
                             </div>
                         </div>
 
+                        {{-- stocks --}}
+                        <div class="mb-3">
+                            <label for="stocks" class="form-label">Stok</label>
+                            <input type="number" class="form-control @error('stocks') is-invalid @enderror" 
+                                   id="stocks" name="stocks" value="{{ old('stocks') }}" min="0" required>
+                            @error('stocks')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- Vendor --}}
                         <div class="mb-3">
                             <label for="vendor_id" class="form-label">Vendor</label>
@@ -93,4 +103,10 @@
         });
     });
 </script>
+<script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
+<script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
+<script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection

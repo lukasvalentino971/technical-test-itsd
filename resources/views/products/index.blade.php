@@ -56,6 +56,7 @@
                                         <th>No</th>
                                         <th>Nama Produk</th>
                                         <th>Harga</th>
+                                        <th>Stok</th>
                                         <th>Vendor</th>
                                         <th>Tanggal Dibuat</th>
                                         <th>Aksi</th>
@@ -67,6 +68,8 @@
                                         <td class="no">{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                                         <td class="name">{{ $product->name }}</td>
                                         <td class="price">Rp {{ number_format($product->price, 2, ',', '.') }}</td>
+                                        {{-- stocks --}}
+                                        <td>{{ $product->stocks }}</td>
                                         <td class="vendor">{{ $product->vendor->name ?? '-' }}</td>
                                         <td>{{ $product->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
@@ -172,4 +175,10 @@
             });
         });
     </script>
+    <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
+    <script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection

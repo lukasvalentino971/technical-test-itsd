@@ -29,6 +29,19 @@
                             @enderror
                         </div>
 
+                        {{-- role admin:user --}}
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+                                <option value="" disabled>Pilih Role</option>
+                                <option value="admin" {{ old('role', $vendor->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="user" {{ old('role', $vendor->role) == 'user' ? 'selected' : '' }}>User</option>
+                            </select>
+                            @error('role')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- Email --}}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
@@ -108,4 +121,10 @@
         confirmPassword.addEventListener('keyup', validatePassword);
     });
 </script>
+<script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
+<script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
+<script src="{{ URL::asset('build/js/app.js') }}"></script>
 @endsection

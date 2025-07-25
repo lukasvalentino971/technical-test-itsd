@@ -33,28 +33,15 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span>@lang('translation.menu')</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                    <a class="nav-link menu-link" href="{{ route('dashboard') }}">
                         <i class="ri-dashboard-2-line"></i> <span>@lang('translation.dashboards')</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarDashboards">
-                        <ul class="nav nav-sm flex-column">
-
-                            <li class="nav-item">
-                                <a href="index" class="nav-link">@lang('translation.ecommerce')</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> <!-- end Dashboard Menu -->
-
-
-                <li class="menu-title"><i class="ri-more-fill"></i> <span>@lang('translation.pages')</span></li>
-
-                {{-- vendors.index --}}
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('vendors.index') }}">
-                        <i class="ri-user-3-line"></i> <span>Vendors</span>
-                    </a>
                 </li>
+                
+
+
+
+
 
                 {{-- products.index --}}
                 <li class="nav-item">
@@ -73,6 +60,24 @@
                         </li>
                     @endif
                 @endauth
+
+                {{-- procurements.report admin --}}
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('procurements.report') }}">
+                                <i class="ri-bar-chart-2-line"></i> <span>Procurement Report</span>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
+
+                                {{-- vendors.index --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('vendors.index') }}">
+                        <i class="ri-user-3-line"></i> <span>Vendors</span>
+                    </a>
+                </li>
             
 
             </ul>

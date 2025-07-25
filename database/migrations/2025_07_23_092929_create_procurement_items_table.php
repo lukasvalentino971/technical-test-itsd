@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->integer('qty');
             $table->decimal('price', 15, 2);
-            $table->decimal('subtotal', 15, 2)->virtualAs('qty * price');
+            $table->decimal('subtotal', 15, 2); // Regular column instead of virtual
             $table->timestamps();
         });
     }
