@@ -27,6 +27,7 @@ class ProductsController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'vendor_id' => 'required|exists:vendors,id',
+            'stocks' => 'nullable|integer|min:0', // Assuming stocks is an optional field
         ]);
 
         Products::create($request->all());
@@ -52,6 +53,7 @@ class ProductsController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'vendor_id' => 'required|exists:vendors,id',
+            'stocks' => 'nullable|integer|min:0', // Assuming stocks is an optional field
         ]);
 
         $product = Products::findOrFail($id);

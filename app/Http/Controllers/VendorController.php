@@ -28,6 +28,7 @@ class VendorController extends Controller
             'email' => 'required|string|email|max:255|unique:vendors',
             'password' => ['required', Rules\Password::defaults()],
             'phone' => 'nullable|string|max:15', // Assuming phone is an optional field
+            'role' => 'required|in:admin,user', // Assuming role is required
         ]);
 
         Vendor::create([
@@ -35,6 +36,7 @@ class VendorController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone, // Assuming phone is an optional field
+            'role' => $request->role, // Assuming role is required
         ]);
 
         return redirect()->route('vendors.index')->with('success', 'Vendor created successfully.');
@@ -61,12 +63,14 @@ class VendorController extends Controller
             'email' => 'required|string|email|max:255|unique:vendors,email,'.$vendor->id,
             'password' => ['nullable', Rules\Password::defaults()],
             'phone' => 'nullable|string|max:15', // Assuming phone is an optional field
+            'role' => 'required|in:admin,user', // Assuming role is required
         ]);
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone, // Assuming phone is an optional field
+            'role' => $request->role, // Assuming role is required
             
         ];
 
