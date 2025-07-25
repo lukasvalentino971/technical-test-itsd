@@ -3,7 +3,6 @@
 @section('title') Produk @endsection
 
 @section('css')
-<!-- Additional CSS for products -->
 @endsection
 
 @section('content')
@@ -20,17 +19,15 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('success'))
-                        <script>
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil!',
-                                text: '{{ session('success') }}',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        </script>
+
+                    {{-- MODIFICATION START --}}
+                    @if ($lowStockCount > 0)
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Peringatan Stok Rendah!</strong> Ada <strong>{{ $lowStockCount }}</strong> produk dengan stok kritis (&lt;10). Segera lakukan restock!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     @endif
+                    {{-- MODIFICATION END --}}
 
                     <div class="listjs-table" id="productList">
                         <div class="row g-4 mb-3">
@@ -68,8 +65,15 @@
                                         <td class="no">{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</td>
                                         <td class="name">{{ $product->name }}</td>
                                         <td class="price">Rp {{ number_format($product->price, 2, ',', '.') }}</td>
-                                        {{-- stocks --}}
-                                        <td>{{ $product->stocks }}</td>
+                                        <td class="stock">
+                                            @if ($product->stocks < 10)
+                                                <span class="badge bg-danger-subtle text-danger" title="Stok menipis!">
+                                                    {{ $product->stocks }}
+                                                </span>
+                                            @else
+                                                {{ $product->stocks }}
+                                            @endif
+                                        </td>
                                         <td class="vendor">{{ $product->vendor->name ?? '-' }}</td>
                                         <td>{{ $product->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
@@ -88,7 +92,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted">Tidak ada produk ditemukan</td>
+                                        <td colspan="7" class="text-center text-muted">Tidak ada produk ditemukan</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
@@ -99,14 +103,11 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div>
+                </div></div></div>
     </div>
 @endsection
 
 @section('script')
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
@@ -165,9 +166,10 @@
             rows.forEach(row => {
                 const name = row.querySelector('.name').textContent.toLowerCase();
                 const price = row.querySelector('.price').textContent.toLowerCase();
+                const stock = row.querySelector('.stock').textContent.toLowerCase().trim();
                 const vendor = row.querySelector('.vendor').textContent.toLowerCase();
                 
-                if (name.includes(searchValue) || price.includes(searchValue) || vendor.includes(searchValue)) {
+                if (name.includes(searchValue) || price.includes(searchValue) || stock.includes(searchValue) || vendor.includes(searchValue)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -175,6 +177,7 @@
             });
         });
     </script>
+
     <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
     <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>

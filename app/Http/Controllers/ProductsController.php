@@ -11,9 +11,16 @@ class ProductsController extends Controller
     // CRUD Products
     public function index()
     {
+        // Query to get the paginated list of products for the table
         $products = Products::with('vendor')->orderBy('id', 'desc')->paginate(10);
-        return view('products.index', compact('products'));
+    
+        // New query to get the total count of products with stock < 10
+        $lowStockCount = Products::where('stocks', '<', 10)->count();
+    
+        // Pass both the product list and the low stock count to the view
+        return view('products.index', compact('products', 'lowStockCount'));
     }
+
 
     public function create()
     {
