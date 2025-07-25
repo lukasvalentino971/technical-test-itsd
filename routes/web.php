@@ -29,4 +29,9 @@ Route::resource('vendors', App\Http\Controllers\VendorController::class);
 // products
 Route::resource('products', App\Http\Controllers\ProductsController::class);
 
+//procurements
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('procurements', App\Http\Controllers\ProcurementsController::class);
+});
+
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

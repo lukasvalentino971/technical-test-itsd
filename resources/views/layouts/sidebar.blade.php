@@ -63,6 +63,18 @@
                     </a>
                 </li>
 
+                {{-- procurements.index --}}
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('procurements.index') }}">
+                                <i class="ri-file-list-3-line"></i> <span>Procurements</span>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
+            
+
             </ul>
         </div>
         <!-- Sidebar -->
