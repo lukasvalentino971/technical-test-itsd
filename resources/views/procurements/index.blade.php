@@ -58,7 +58,7 @@
                                         <th>Total Harga</th>
                                         <th>Jumlah Item</th>
                                         <th>Tanggal Dibuat</th>
-                                        <th>Aksi</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">

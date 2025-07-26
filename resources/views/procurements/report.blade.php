@@ -54,9 +54,7 @@
                                                 @forelse ($procurement->items as $item)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        {{-- Menampilkan nama produk, dengan fallback jika produk terhapus --}}
                                                         <td>{{ $item->product->name ?? 'N/A' }}</td>
-                                                        {{-- Menampilkan nama vendor, dengan fallback jika relasi tidak ditemukan --}}
                                                         <td>{{ $item->product->vendor->name ?? 'N/A' }}</td>
                                                         <td>{{ $item->qty }}</td>
                                                         <td>Rp {{ number_format($item->price, 2, ',', '.') }}</td>
@@ -70,6 +68,13 @@
                                                     </tr>
                                                 @endforelse
                                             </tbody>
+                                            {{-- Baris Total Harga --}}
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5" class="text-end fw-bold">Total Harga:</td>
+                                                    <td class="fw-bold">Rp {{ number_format($procurement->total_price, 2, ',', '.') }}</td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

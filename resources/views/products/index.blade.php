@@ -56,7 +56,7 @@
                                         <th>Stok</th>
                                         <th>Vendor</th>
                                         <th>Tanggal Dibuat</th>
-                                        <th>Aksi</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">

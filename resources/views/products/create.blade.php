@@ -18,6 +18,23 @@
                     <form action="{{ route('products.store') }}" method="POST">
                         @csrf
 
+                        {{-- Vendor --}}
+                        <div class="mb-3">
+                            <label for="vendor_id" class="form-label">Vendor</label>
+                            <select class="form-select @error('vendor_id') is-invalid @enderror" 
+                                    id="vendor_id" name="vendor_id" required>
+                                <option value="">Pilih Vendor</option>
+                                @foreach($vendors as $vendor)
+                                    <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>
+                                        {{ $vendor->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('vendor_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         {{-- Nama Produk --}}
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Produk</label>
@@ -51,22 +68,7 @@
                             @enderror
                         </div>
 
-                        {{-- Vendor --}}
-                        <div class="mb-3">
-                            <label for="vendor_id" class="form-label">Vendor</label>
-                            <select class="form-select @error('vendor_id') is-invalid @enderror" 
-                                    id="vendor_id" name="vendor_id" required>
-                                <option value="">Pilih Vendor</option>
-                                @foreach($vendors as $vendor)
-                                    <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>
-                                        {{ $vendor->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('vendor_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+
 
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Simpan Produk</button>

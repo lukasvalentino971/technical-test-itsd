@@ -114,13 +114,13 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Transaksi</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total TransAction</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
                                     <h4 class="fs-22 fw-semibold ff-secondary mb-4">{{ number_format($totalProcurementTransactions) }}</h4>
-                                    <a href="{{ route('procurements.index') }}" class="text-decoration-underline">Lihat Transaksi</a>
+                                    <a href="{{ route('procurements.index') }}" class="text-decoration-underline">Lihat TransAction</a>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -154,7 +154,7 @@
                                             <th>Total Harga</th>
                                             <th>Jumlah Item</th>
                                             <th>Tanggal</th>
-                                            <th>Aksi</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -199,7 +199,7 @@
                                             <th>Vendor</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
-                                            <th>Aksi</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
