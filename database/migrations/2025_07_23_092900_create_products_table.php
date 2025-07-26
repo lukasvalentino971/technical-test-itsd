@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', 15, 2);
-            $table->foreignId('vendor_id')->constrained('vendors')->onDelete('set null');
+            $table->integer('stocks')->default(0);
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors')->onDelete('set null');
             $table->timestamps();
         });
     }

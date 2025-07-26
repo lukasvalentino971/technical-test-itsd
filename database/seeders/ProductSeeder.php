@@ -16,6 +16,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Laptop',
                 'price' => 8500000.00,
+                'stocks' => 50,
                 'vendor_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -23,6 +24,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Printer',
                 'price' => 2500000.00,
+                'stocks' => 30,
                 'vendor_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -30,6 +32,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Monitor',
                 'price' => 1800000.00,
+                'stocks' => 75,
                 'vendor_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -37,6 +40,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Keyboard',
                 'price' => 350000.00,
+                'stocks' => 120,
                 'vendor_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -44,6 +48,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Mouse',
                 'price' => 150000.00,
+                'stocks' => 200,
                 'vendor_id' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
