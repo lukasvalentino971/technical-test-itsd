@@ -81,6 +81,24 @@
                         <i class="ri-user-3-line"></i> <span>Vendors</span>
                     </a>
                 </li>
+
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <li class="menu-title"><span>Settings</span></li>
+                    @endif
+                @endauth
+
+                {{-- users.index --}}
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('users.index') }}">
+                                <i class="ri-user-2-line"></i> <span>Users</span>
+                            </a>
+                        </li>
+                    @endif
+                @endauth
+
             
 
             </ul>

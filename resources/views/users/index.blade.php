@@ -1,48 +1,35 @@
 @extends('layouts.master')
 
-@section('title') Vendor @endsection
+@section('title') Users @endsection
 
 @section('css')
-<!-- Additional CSS for vendor -->
 @endsection
 
 @section('content')
     @component('components.breadcrumb')
-        @slot('li_1') Vendor @endslot
-        @slot('title') Data Vendor @endslot
+        @slot('li_1') Users @endslot
+        @slot('title') Data Users @endslot
     @endcomponent
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Data Vendor</h4>
+                    <h4 class="card-title mb-0">Data Users</h4>
                 </div>
 
                 <div class="card-body">
-                    @if (session('success'))
-                        <script>
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil!',
-                                text: '{{ session('success') }}',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        </script>
-                    @endif
-
-                    <div class="listjs-table" id="vendorList">
+                    <div class="listjs-table" id="userList">
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
-                                <button type="button" class="btn btn-success add-btn" id="create-btn" onclick="location.href='{{ route('vendors.create') }}'" title="Add new vendor">
-                                    <i class="ri-add-line align-bottom me-1"></i> Tambah Vendor
+                                <button type="button" class="btn btn-success add-btn" id="create-btn" onclick="location.href='{{ route('users.create') }}'" title="Tambah user baru">
+                                    <i class="ri-add-line align-bottom me-1"></i> Tambah User
                                 </button>
                             </div>
                             <div class="col-sm">
                                 <div class="d-flex justify-content-sm-end">
                                     <div class="search-box ms-2">
-                                        <input type="text" class="form-control search" placeholder="Search..." id="searchInput">
+                                        <input type="text" class="form-control search" placeholder="Cari..." id="searchInput">
                                         <i class="ri-search-line search-icon"></i>
                                     </div>
                                 </div>
@@ -50,33 +37,40 @@
                         </div>
 
                         <div class="table-responsive table-card mt-3 mb-1">
-                            <table class="table align-middle table-nowrap mb-0" id="vendorTable">
+                            <table class="table align-middle table-nowrap mb-0" id="userTable">
                                 <thead class="table-light">
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Vendor</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Tanggal Daftar</th>
+                                        <th>Role</th>
+                                        <th>Tanggal Dibuat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
-                                    @forelse ($vendors as $vendor)
+                                    @forelse ($users as $user)
                                     <tr>
-                                        <td class="no">{{ ($vendors->currentPage() - 1) * $vendors->perPage() + $loop->iteration }}</td>
-                                        <td class="name">{{ $vendor->name }}</td>
-
-                                                                                <td class="email">{{ $vendor->email }}</td>
-                                        <td>{{ $vendor->created_at->format('d/m/Y H:i') }}</td>
+                                        <td class="no">{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
+                                        <td class="name">{{ $user->name }}</td>
+                                        <td class="email">{{ $user->email }}</td>
+                                        <td class="role">
+                                            @if($user->isAdmin())
+                                                <span class="badge bg-danger-subtle text-danger">Admin</span>
+                                            @else
+                                                <span class="badge bg-success-subtle text-success">User</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-sm btn-success edit-item-btn" title="Edit">
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-success edit-item-btn" title="Edit">
                                                     <i class="ri-edit-line"></i>
                                                 </a>
-                                                <a href="{{ route('vendors.show', $vendor->id) }}" class="btn btn-sm btn-primary show-item-btn" title="View">
+                                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-primary show-item-btn" title="Lihat">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-sm btn-danger remove-item-btn" title="Delete" onclick="confirmDelete('{{ route('vendors.destroy', $vendor->id) }}')">
+                                                <button type="button" class="btn btn-sm btn-danger remove-item-btn" title="Hapus" onclick="confirmDelete('{{ route('users.destroy', $user->id) }}')">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </button>
                                             </div>
@@ -84,25 +78,24 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="5" class="text-center text-muted">Tidak ada vendor ditemukan</td>
+                                        <td colspan="6" class="text-center text-muted">Tidak ada user ditemukan</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
                             </table>
 
                             <div class="d-flex justify-content-end mt-3">
-                                {{ $vendors->links('pagination::bootstrap-5') }}
+                                {{ $users->links('pagination::bootstrap-5') }}
                             </div>
                         </div>
                     </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('script')
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
@@ -121,7 +114,7 @@
         function confirmDelete(url) {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
-                text: "Vendor yang dihapus tidak dapat dikembalikan!",
+                text: "User yang dihapus tidak dapat dikembalikan!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -156,13 +149,14 @@
         // Search functionality
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const searchValue = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#vendorTable tbody tr');
+            const rows = document.querySelectorAll('#userTable tbody tr');
             
             rows.forEach(row => {
                 const name = row.querySelector('.name').textContent.toLowerCase();
                 const email = row.querySelector('.email').textContent.toLowerCase();
+                const role = row.querySelector('.role').textContent.toLowerCase();
                 
-                if (name.includes(searchValue) || email.includes(searchValue)) {
+                if (name.includes(searchValue) || email.includes(searchValue) || role.includes(searchValue)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -170,6 +164,7 @@
             });
         });
     </script>
+
     <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
     <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>

@@ -43,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('procurements', App\Http\Controllers\ProcurementsController::class);
         Route::get('/procurement-report', [App\Http\Controllers\ProcurementsController::class, 'report'])->name('procurements.report');
     });
+
+    // users
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('users', App\Http\Controllers\UserController::class);
+    });
 });
 
 // Catch-all fallback (optional, accessible without auth)

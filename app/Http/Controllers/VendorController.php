@@ -26,17 +26,13 @@ class VendorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:vendors',
-            'password' => ['required', Rules\Password::defaults()],
             'phone' => 'nullable|string|max:15', // Assuming phone is an optional field
-            'role' => 'required|in:admin,user', // Assuming role is required
         ]);
 
         Vendor::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'phone' => $request->phone, // Assuming phone is an optional field
-            'role' => $request->role, // Assuming role is required
         ]);
 
         return redirect()->route('vendors.index')->with('success', 'Vendor created successfully.');
@@ -61,22 +57,15 @@ class VendorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:vendors,email,'.$vendor->id,
-            'password' => ['nullable', Rules\Password::defaults()],
             'phone' => 'nullable|string|max:15', // Assuming phone is an optional field
-            'role' => 'required|in:admin,user', // Assuming role is required
         ]);
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone, // Assuming phone is an optional field
-            'role' => $request->role, // Assuming role is required
             
         ];
-
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
 
         $vendor->update($data);
 

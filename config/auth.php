@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'vendors',
+        'passwords' => 'users',
     ],
 
     /*
@@ -38,13 +38,13 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'vendors',
+            'provider' => 'users',
         ],
 
                 // Opsional: kalau ingin guard 'vendor' eksplisit
-                'vendor' => [
+                'users' => [
                     'driver' => 'session',
-                    'provider' => 'vendors',
+                    'provider' => 'users',
                 ],
     ],
 
@@ -67,9 +67,9 @@ return [
 
     'providers' => [
 
-        'vendors' => [
+        'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Vendor::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -94,8 +94,8 @@ return [
     */
 
     'passwords' => [
-        'vendors' => [
-            'provider' => 'vendors',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

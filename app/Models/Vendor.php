@@ -12,21 +12,12 @@ class Vendor extends Authenticatable
     protected $table = 'vendors'; // pastikan sesuai nama tabel
 
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'role'// sesuaikan dengan kolom di tabel vendors
+        'name', 'email', 'phone'// sesuaikan dengan kolom di tabel vendors
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
-    }
-
-    public function isUser()
-    {
-        return $this->role === 'user';
-    }
 }
 

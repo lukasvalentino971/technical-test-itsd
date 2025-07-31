@@ -24,12 +24,11 @@
                 </div>
                 <div class="header-item d-flex align-items-center">
                     <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2">
-                        <span class="fw-semibold fs-5 text-white">Simple Procurement System</span>
+                        <span class="fw-semibold fs-5 text-muted ">Simple Procurement System</span>
                         
                         <!-- Badge warna -->
                         <span class="badge bg-success text-uppercase">Ver 1.0</span>
-                        <!-- atau bisa juga -->
-                        <!-- <span class="badge bg-info text-dark">Production</span> -->
+                  
                     </div>
                 </div>
                 

@@ -1,10 +1,10 @@
 @extends('layouts.master')
-@section('title', 'Detail Vendor')
+@section('title', 'Detail User')
 
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') Vendor @endslot
-@slot('title') Detail Vendor @endslot
+@slot('li_1') Users @endslot
+@slot('title') Detail User @endslot
 @endcomponent
 
 <div class="container">
@@ -13,8 +13,8 @@
             <div class="card">
                 <div class="card-header bg-light">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0">Detail Vendor</h4>
-                        <a href="{{ route('vendors.index') }}" class="btn btn-secondary btn-sm">
+                        <h4 class="card-title mb-0">Detail User: {{ $user->name }}</h4>
+                        <a href="{{ route('users.index') }}" class="btn btn-secondary btn-sm">
                             <i class="ri-arrow-left-line align-bottom me-1"></i> Kembali
                         </a>
                     </div>
@@ -24,21 +24,40 @@
                         <table class="table table-bordered mb-0">
                             <tbody>
                                 <tr>
-                                    <th width="30%" class="bg-light">Nama Vendor</th>
-                                    <td>{{ $vendor->name }}</td>
+                                    <th width="30%" class="bg-light">Nama Lengkap</th>
+                                    <td>{{ $user->name }}</td>
                                 </tr>
-
                                 <tr>
                                     <th class="bg-light">Email</th>
-                                    <td>{{ $vendor->email }}</td>
+                                    <td>{{ $user->email }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="bg-light">Tanggal Daftar</th>
-                                    <td>{{ $vendor->created_at->format('d F Y H:i') }}</td>
+                                    <th class="bg-light">Role</th>
+                                    <td>
+                                        @if($user->isAdmin())
+                                            <span class="badge bg-danger">Admin</span>
+                                        @else
+                                            <span class="badge bg-success">User</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light">Email Diverifikasi</th>
+                                    <td>
+                                        @if($user->email_verified_at)
+                                            <span class="badge bg-success">{{ $user->email_verified_at->format('d F Y H:i') }}</span>
+                                        @else
+                                            <span class="badge bg-warning">Belum diverifikasi</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-light">Tanggal Dibuat</th>
+                                    <td>{{ $user->created_at->format('d F Y H:i') }}</td>
                                 </tr>
                                 <tr>
                                     <th class="bg-light">Terakhir Diupdate</th>
-                                    <td>{{ $vendor->updated_at->format('d F Y H:i') }}</td>
+                                    <td>{{ $user->updated_at->format('d F Y H:i') }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -46,12 +65,14 @@
 
                     <div class="mt-4">
                         <div class="d-flex justify-content-start gap-2">
-                            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-success">
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-success">
                                 <i class="ri-edit-line align-bottom me-1"></i> Edit
                             </a>
-                            <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ route('vendors.destroy', $vendor->id) }}')">
+                            @if($user->id != auth()->id())
+                            <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ route('users.destroy', $user->id) }}')">
                                 <i class="ri-delete-bin-line align-bottom me-1"></i> Hapus
                             </button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -69,7 +90,7 @@
     function confirmDelete(url) {
         Swal.fire({
             title: 'Apakah Anda yakin?',
-            text: "Vendor yang dihapus tidak dapat dikembalikan!",
+            text: "User yang dihapus tidak dapat dikembalikan!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
