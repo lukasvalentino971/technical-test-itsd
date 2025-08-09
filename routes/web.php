@@ -22,6 +22,9 @@ Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang'
 // Root
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
 
+Route::get('otp-verify', [App\Http\Controllers\Auth\LoginController::class, 'showOtpForm'])->name('otp.show');
+Route::post('otp-verify', [App\Http\Controllers\Auth\LoginController::class, 'verifyOtp'])->name('otp.verify');
+
 // Routes that require authentication
 Route::middleware(['auth'])->group(function () {
 
