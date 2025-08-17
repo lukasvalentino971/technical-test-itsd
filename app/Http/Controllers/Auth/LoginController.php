@@ -108,6 +108,9 @@ class LoginController extends Controller
             // Clear session data
             $request->session()->forget(['otp', 'user_id', 'otp_expires_at']);
 
+            // PERUBAHAN: Tambahkan session flash untuk SweetAlert
+            $request->session()->flash('login_success', true);
+
             // Redirect to the intended page or dashboard
             return redirect()->intended($this->redirectPath());
         }

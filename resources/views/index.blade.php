@@ -232,6 +232,8 @@
 
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{-- Script bawaan template bisa dibiarkan --}}
 <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
@@ -239,4 +241,20 @@
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
+
+{{-- PERUBAHAN: Tambahkan script untuk menampilkan SweetAlert jika ada session 'login_success' --}}
+@if(session('login_success'))
+<script>
+    Swal.fire({
+        title: 'Login Berhasil!',
+        text: 'Selamat datang kembali, {{ Auth::user()->name }}!',
+        icon: 'success',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Mantap!',
+        timer: 4000, // Notifikasi akan hilang setelah 4 detik
+        timerProgressBar: true
+    });
+</script>
+@endif
+
 @endsection
